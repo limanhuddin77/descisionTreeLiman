@@ -1,0 +1,58 @@
+For ensuring our dlt is the same as our training data:
+
+			for (int i = 0; i < 12; i++) {
+				String output = dt.traverse(patronsTree, training_set.get(i));
+				System.out.println("output: " + output);
+			}
+
+For testing our entropy functions:
+			
+			float r_entropy = dt.remainder(training_set, attr_values, 4);
+			System.out.println("remaining entropy on Patrons: " + r_entropy);
+			float gain_entropy = dt.gain(classifiers, training_set, attr_values, 4);
+			System.out.println("gain entropy on Patrons: " + gain_entropy);
+
+			int bestAttr = dt.importance(classifiers, training_set, attr_values);
+
+			System.out.println("bestAttr: " + bestAttr);
+
+For testing our traverse() function:
+
+			Attribute patrons = new Attribute();
+			patrons.setPosValues(attr_values.get(4));
+			patrons.setCol(4);
+
+			Node<Attribute> patronsNode = new Node<Attribute>(patrons);
+
+			Node<Attribute> none = new Node<Attribute>(new Attribute("None"));
+			none.data.setCls("No");
+			Node<Attribute> some = new Node<Attribute>(new Attribute("Some"));
+			some.data.setCls("Yes");
+			Node<Attribute> full = new Node<Attribute>(new Attribute("Full"));
+
+			patronsNode.addChild(none); 
+			patronsNode.addChild(some);
+			patronsNode.addChild(full);
+			Vector<Attribute> ex = training_set.get(0);
+
+			String output = dt.traverse(patronsNode, training_set.get(0));
+			System.out.println("output: " + output);
+			
+			
+			
+						/* Entropy function for total training set here */
+			//			float entropy = 0;
+			//
+			//			int total = training_set.size();
+			//			System.out.println("total # of examples: " + total);
+			//
+			//			/* enumerate over all keys in classifiers (HashTable) */
+			//			for (Enumeration<String> e = classifiers.keys(); e.hasMoreElements();) {
+			//				/* c is the number of occurrences of the corresponding key */
+			//				float c = classifiers.get(e.nextElement());
+			//				entropy += (c/total)* Math.log(c/total)/Math.log(2);
+			//			}
+			//
+			//			/* remember to negate */
+			//			System.out.println("entropy: " + (-entropy));
+			
